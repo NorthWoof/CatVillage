@@ -5,7 +5,9 @@ using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
-    //public UnitData unit;
+    public GameObject tempCat;
+    public float spawnTime = 15f;
+
     public float progressTime;
     public Slider progressBar;
 
@@ -21,11 +23,13 @@ public class Building : MonoBehaviour
         if(progressTime >= -1)
         {
             progressTime -= Time.deltaTime;
+            progressBar.value = (spawnTime - progressTime) / spawnTime;
         }
         else
         {
-            //unit.Active();
-            //progressTime = unit.cooldown;
+            SoldierSpawner.Instance.SpawnSoldier(tempCat);
+            progressTime = spawnTime;
+            progressBar.value = 0;
         }
     }
 }

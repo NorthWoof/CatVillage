@@ -19,7 +19,7 @@ public class SoldierSpawner : MonoBehaviour
 
     public void SpawnSoldier(GameObject soldier)
     {
-        Vector3 randomSpawnPoint = new Vector3(spawnPoint.position.x, spawnPoint.position.y + Random.Range(-0.2f, 0.2f));
+        Vector3 randomSpawnPoint = new Vector3(spawnPoint.position.x, spawnPoint.position.y + Random.Range(-0.25f, 0.25f));
         GameObject tempSoldier = Instantiate(soldier, randomSpawnPoint, spawnPoint.rotation);
 
         SetSpriteOrder(tempSoldier);

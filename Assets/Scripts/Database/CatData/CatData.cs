@@ -12,6 +12,9 @@ public class CatData
     [XmlAttribute("name")]
     public string unitName;
 
+    [XmlElement("prefab")]
+    public string prefab;
+
     [XmlElement("SpawnTime")]
     public float spawnTime;
 

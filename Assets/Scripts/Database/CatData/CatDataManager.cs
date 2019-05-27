@@ -7,7 +7,9 @@ using UnityEngine;
 
 public class CatDataManager
 {
-    public static CatDataContainer Load(string path)
+    const string path = "Assets/Resources/Database/CatData.xml";
+
+    public static CatDataContainer Load()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(CatDataContainer));
 
@@ -20,7 +22,7 @@ public class CatDataManager
         return catsContainer;
     }
 
-    public static void Save(CatDataContainer catsList, string path)
+    public static void Save(CatDataContainer catsList)
     {
         Encoding encoding = Encoding.GetEncoding("UTF-16");
 
@@ -33,5 +35,18 @@ public class CatDataManager
         serializer.Serialize(writer, catsList);
 
         writer.Close();
+    }
+
+    public static CatData FetchCatByID(string id)
+    {
+        CatDataContainer catsContainer = Load();
+
+        foreach(CatData cat in catsContainer.cats)
+        {
+            if (cat.id == id)
+                return cat;
+        }
+
+        return null;
     }
 }
