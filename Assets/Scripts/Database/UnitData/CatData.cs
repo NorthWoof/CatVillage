@@ -1,0 +1,21 @@
+﻿using UnityEngine;
+using System.Collections;
+using System.Xml;
+using System.Xml.Serialization;
+
+[System.Serializable, XmlRoot("CatDatas")]
+public class CatData
+{
+    [XmlAttribute("id")]
+    public string id;
+
+    [XmlAttribute("name")]
+    public string unitName;
+
+    [XmlElement("SpawnTime")]
+    public float spawnTime;
+
+    [XmlElement("Damage")]
+    public string damage;
+
+}

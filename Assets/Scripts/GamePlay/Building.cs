@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
-
+    //public UnitData unit;
     public float progressTime;
     public Slider progressBar;
 
@@ -18,6 +18,14 @@ public class Building : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if(progressTime >= -1)
+        {
+            progressTime -= Time.deltaTime;
+        }
+        else
+        {
+            //unit.Active();
+            //progressTime = unit.cooldown;
+        }
     }
 }
