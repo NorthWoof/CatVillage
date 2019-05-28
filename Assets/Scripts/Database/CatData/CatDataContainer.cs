@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 
 
-[XmlRoot("CatCollection")]
 public class CatDataContainer
 {
     [XmlArray("CatDatas")]

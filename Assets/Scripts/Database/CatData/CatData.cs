@@ -18,7 +18,8 @@ public class CatData
     [XmlElement("SpawnTime")]
     public float spawnTime;
 
-    [XmlElement("Damage")]
-    public string damage;
+    [XmlElement("Cost")]
+    public float cost;
+
 
 }

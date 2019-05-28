@@ -3,16 +3,23 @@ using UnityEditor;
 using System.Xml.Serialization;
 using System.IO;
 using System.Collections.Generic;
+using UnityEditorInternal;
+
 
 [CustomEditor(typeof(CatData))]
 public class CatDataEditor : EditorWindow
 {
     public List<CatData> catDatas;
+    ReorderableList reorderlist;
+
+    SerializedObject serializedObject;
 
     private void Awake()
     {
         catDatas = new List<CatData>();
-        LoadCats();
+        //LoadCats();
+
+        
     }
 
     [MenuItem("Window/CatData")]
@@ -21,11 +28,17 @@ public class CatDataEditor : EditorWindow
         GetWindow<CatDataEditor>("CatData");
     }
 
+    private void OnEnable()
+    {
+        
+    }
+
     private void OnGUI()
     {
         if(GUILayout.Button("Apply Change"))
         {
-            SaveCats();
+            TestCat();
+            SaveCats(catDatas);
         }
 
         GUILayout.Label("Base Settings", EditorStyles.boldLabel);
@@ -37,14 +50,27 @@ public class CatDataEditor : EditorWindow
 
     }
 
-    public void LoadCats()
+    public void TestCat()
     {
-        catDatas = LoadXML();
+        CatData cat1 = new CatData();
+        cat1.id = "meow";
+        cat1.unitName = "WEEEOW";
+        cat1.cost = 10;
+
+        catDatas.Add(cat1);
+
+        CatData cat2 = new CatData();
+        cat2.id = "bark";
+        cat2.unitName = "Barker";
+        cat2.cost = 20;
+
+        catDatas.Add(cat2);
+
     }
 
-    public void SaveCats()
+    /*public void LoadCats()
     {
-        SaveXML(catDatas);
+        catDatas = LoadXML();
     }
 
     public List<CatData> LoadXML()
@@ -52,13 +78,14 @@ public class CatDataEditor : EditorWindow
         CatDataContainer cdc = CatDataManager.Load();
 
         return cdc.cats;
-    }
+    }*/
 
-    public void SaveXML(List<CatData> catDatas)
+    public void SaveCats(List<CatData> catDatas)
     {
         CatDataContainer cdc = new CatDataContainer();
-        cdc.cats = catDatas;
+        
+        MainDatabase.mainDB.catData.cats = catDatas;
 
-        CatDataManager.Save(cdc);
+        MainDataManager.Save(MainDatabase.mainDB);
     }
 }
