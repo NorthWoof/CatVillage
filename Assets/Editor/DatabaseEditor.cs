@@ -7,12 +7,13 @@ using UnityEditorInternal;
 
 
 [CustomEditor(typeof(CatData))]
-public class CatDataEditor : EditorWindow
+public class DatabaseEditor : EditorWindow
 {
     public List<CatData> catDatas;
     ReorderableList reorderlist;
 
     SerializedObject serializedObject;
+    Vector2 scrollPosition = Vector2.zero;
 
     private void Awake()
     {
@@ -22,20 +23,22 @@ public class CatDataEditor : EditorWindow
         
     }
 
-    [MenuItem("Window/CatData")]
+    [MenuItem("Window/Database")]
     public static void ShowWindow()
     {
-        GetWindow<CatDataEditor>("CatData");
+        GetWindow<DatabaseEditor>("Database");
     }
 
     private void OnEnable()
     {
-        
+
     }
 
     private void OnGUI()
     {
-        if(GUILayout.Button("Apply Change"))
+        scrollPosition = GUILayout.BeginScrollView(scrollPosition, false, true);
+
+        if (GUILayout.Button("Apply Change"))
         {
             TestCat();
             SaveCats(catDatas);
@@ -48,6 +51,7 @@ public class CatDataEditor : EditorWindow
             GUILayout.Label(catDatas[i].unitName, EditorStyles.boldLabel);
         }
 
+        GUILayout.EndScrollView();
     }
 
     public void TestCat()
