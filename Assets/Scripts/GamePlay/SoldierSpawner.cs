@@ -27,6 +27,9 @@ public class SoldierSpawner : MonoBehaviour
 
     void SetSpriteOrder(GameObject soldier)
     {
-        soldier.GetComponent<SpriteRenderer>().sortingOrder = (int)(soldier.transform.position.y * -100);
+        //soldier.GetComponent<SpriteRenderer>().sortingOrder = (int)(soldier.transform.position.y * -100);
+        soldier.GetComponent<DragonBones.UnityArmatureComponent>().sortingOrder = (int)(soldier.transform.position.y * -100);
     }
+
+
 }

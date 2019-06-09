@@ -14,7 +14,7 @@ public class MainDatabase : MonoBehaviour
 
         foreach(CatData cat in MainDatabase.mainDB.catData.cats)
         {
-            Debug.Log(cat.unitName);
+            
         }
     }
 }
