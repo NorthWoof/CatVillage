@@ -14,7 +14,7 @@ public class SoldierSpawner : MonoBehaviour
         Instance = this;
 
         if (!spawnPoint)
-            spawnPoint = GameObject.Find("SpawnSoldierPoint").transform;
+            spawnPoint = GameObject.Find("SoldierSpawnPoint").transform;
     }
 
     public void SpawnSoldier(GameObject soldier)
@@ -27,8 +27,7 @@ public class SoldierSpawner : MonoBehaviour
 
     void SetSpriteOrder(GameObject soldier)
     {
-        //soldier.GetComponent<SpriteRenderer>().sortingOrder = (int)(soldier.transform.position.y * -100);
-        soldier.GetComponent<DragonBones.UnityArmatureComponent>().sortingOrder = (int)(soldier.transform.position.y * -100);
+        soldier.GetComponent<DragonBones.UnityArmatureComponent>().sortingOrder = (int)(soldier.transform.position.y * -10000);
     }
 
 

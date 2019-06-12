@@ -5,9 +5,11 @@ TagManager:
   serializedVersion: 2
   tags:
   - CatBase
-  - DarkGate
-  - Soldier
+  - EnemyBase
+  - Cat
   - Enemy
+  - Boss
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -40,11 +42,17 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Base
   m_SortingLayers:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Base
+    uniqueID: 471170755
+    locked: 0
   - name: Unit
     uniqueID: 3398314575
+    locked: 0
+  - name: Foreground
+    uniqueID: 1323168447
     locked: 0

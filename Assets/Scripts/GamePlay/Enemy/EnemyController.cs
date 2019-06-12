@@ -2,18 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
+using System;
 
-public class SoldierBase : MonoBehaviour
+public class EnemyController : Unit
 {
-
-    public int hp = 50;
-
     [Header("BaseStats")]
     public float baseSpeed = 2;
     public int baseAttackDamage = 10;
-    public float attackDelay = 1f; 
+    public float attackDelay = 1f;
 
-    public GameObject target;
+    public Unit target;
 
     //adapted stats
     private int attackDamage;
@@ -21,7 +19,7 @@ public class SoldierBase : MonoBehaviour
     public float attackDelayCountdown = 0;
 
     Rigidbody2D body;
-    SoldierAnimation anim;
+    EnemyAnimation anim;
 
     private UnityArmatureComponent armatureComponent;
 
@@ -30,7 +28,7 @@ public class SoldierBase : MonoBehaviour
     void Start()
     {
         body = this.GetComponent<Rigidbody2D>();
-        anim = GetComponent<SoldierAnimation>();
+        anim = GetComponent<EnemyAnimation>();
 
         attackDamage = baseAttackDamage;
 
@@ -38,25 +36,34 @@ public class SoldierBase : MonoBehaviour
         armatureComponent.AddDBEventListener(EventObject.FRAME_EVENT, this.OnFrameEventHandler);
     }
 
-    // Update is called once per frame
+
     void FixedUpdate()
     {
+        if (isDead)
+        {
+            body.velocity = new Vector2(0, 0);
+            return;
+        }
         if (!target)
         {
-            body.velocity = new Vector2(baseSpeed, 0);
-            anim.Running(); 
+            body.velocity = new Vector2(-baseSpeed, 0);
+            anim.Running();
         }
         else
         {
             body.velocity = new Vector2(0, 0);
-            
         }
-            
+
     }
 
-    private void Update()
+    // Update is called once per frame
+    void Update()
     {
-        if(attackDelayCountdown >= -1)
+        if(target)
+            if (target.isDead)
+                target = null;
+
+        if (attackDelayCountdown >= 0)
         {
             attackDelayCountdown -= Time.deltaTime;
         }
@@ -66,6 +73,7 @@ public class SoldierBase : MonoBehaviour
             {
                 Action();
             }
+
         }
     }
 
@@ -75,41 +83,26 @@ public class SoldierBase : MonoBehaviour
         attackDelayCountdown = attackDelay;
     }
 
-    public void Attack(GameObject target)
+    //Do Damage
+    public virtual void Attack(Unit target)
     {
-        if(target.tag == "Enemy")
-        {
-            EnemyBase enemy = target.GetComponent<EnemyBase>();
-            enemy.TakeDamage(attackDamage);
-        }
-    }
-
-    public void TakeDamage(int damage)
-    {
-        hp -= damage;
-        CheckHp();
-    }
-
-    public void CheckHp()
-    {
-        if (hp <= 0)
-        {
-            Dead();
-        }
-    }
-
-    public void Dead()
-    {
-        gameObject.layer = 10;
-        Destroy(this.gameObject);
+        if (!target)
+            return;
+        target.TakeDamage(attackDamage);
     }
 
     private void OnFrameEventHandler(string type, EventObject eventObject)
     {
-        Debug.Log(eventObject.name);
-        if(eventObject.name == "atk")
+        if (eventObject.name == "atk")
         {
             Attack(target);
         }
+    }
+
+
+    public override void Dead()
+    {
+        anim.Dead();
+        base.Dead();
     }
 }

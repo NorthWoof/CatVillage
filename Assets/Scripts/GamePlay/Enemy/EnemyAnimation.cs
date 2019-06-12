@@ -4,9 +4,9 @@ using UnityEngine;
 using DragonBones;
 using System;
 
-public class SoldierAnimation : MonoBehaviour
+public class EnemyAnimation : MonoBehaviour
 {
-    enum State {IDLE, RUNNING, ATTACK, DEAD };
+    enum State { IDLE, RUNNING, ATTACK, DEAD };
     private State state = State.IDLE;
 
     public string run = "Running";
@@ -27,7 +27,7 @@ public class SoldierAnimation : MonoBehaviour
 
     public void Attack()
     {
-        if(state != State.DEAD && state != State.ATTACK)
+        if (state != State.DEAD)
         {
             armatureComponent.animation.Play(attack);
             state = State.ATTACK;
@@ -69,6 +69,4 @@ public class SoldierAnimation : MonoBehaviour
             Idle();
         }
     }
-
-   
 }
