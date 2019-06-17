@@ -41,7 +41,7 @@ TagManager:
   - 
   - 
   - 
-  - 
+  - Ground
   - Base
   m_SortingLayers:
   - name: Default
@@ -52,6 +52,9 @@ TagManager:
     locked: 0
   - name: Unit
     uniqueID: 3398314575
+    locked: 0
+  - name: Projectile
+    uniqueID: 3386742597
     locked: 0
   - name: Foreground
     uniqueID: 1323168447

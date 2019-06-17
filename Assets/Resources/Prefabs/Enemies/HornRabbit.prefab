@@ -43,6 +43,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7c7606fd18a6b154cb19b7c5cf2fda25, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  range: 1
 --- !u!1 &4226969876462483675
 GameObject:
   m_ObjectHideFlags: 0
@@ -475,10 +476,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be17c2eb0c304524687e51afe253a190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 20
+  hp: 25
   isDead: 0
   baseSpeed: 2
-  baseAttackDamage: 15
+  baseAttackDamage: 10
   attackDelay: 1
   target: {fileID: 0}
   attackDelayCountdown: 0

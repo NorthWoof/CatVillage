@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0b810ccd6a16df746b7bfaa357081cf2, type: 3}
+  m_Name: BombKitty_Data
+  m_EditorClassIdentifier: 
+  dataName: BombKitty
+  dragonBonesJSON: {fileID: 4900000, guid: 244d7d116b6a9d5468f31488a583372a, type: 3}
+  textureAtlas:
+  - textureAtlasJSON: {fileID: 4900000, guid: 1f370f6c9fc69ae43b7cfed24fd4627a, type: 3}
+    texture: {fileID: 2800000, guid: 1263bdf728cf4404f9e9be1f7643e4f2, type: 3}
+    material: {fileID: 2100000, guid: 90394f20cf030cd489db5841d693943a, type: 2}
+    uiMaterial: {fileID: 0}

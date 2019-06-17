@@ -6,7 +6,9 @@ public class CatBase : Unit
 {
     public override void Dead()
     {
-        base.Dead();
+        isDead = true;
+        gameObject.layer = 10;
+        Destroy(this.gameObject);
     }
 
     public void GameOver()

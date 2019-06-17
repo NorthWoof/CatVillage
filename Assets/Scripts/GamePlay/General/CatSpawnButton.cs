@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class CatSpawnButton : MonoBehaviour
 {
     public GameObject tempCat;
+    public int fishesCost = 1;
+
     public float cooldown = 15f;
 
     public float cooldownTime;
@@ -44,7 +46,13 @@ public class CatSpawnButton : MonoBehaviour
         if (!isReady)
             return;
 
+        if (fishesCost > GamePlayManager.Instance.fishes)
+            return;
+
         SoldierSpawner.Instance.SpawnSoldier(tempCat);
+
+        GamePlayManager.Instance.fishes -= fishesCost;
         isReady = false;
+
     }
 }

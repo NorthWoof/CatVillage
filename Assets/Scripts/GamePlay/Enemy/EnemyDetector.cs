@@ -6,6 +6,8 @@ public class EnemyDetector : MonoBehaviour
 {
     EnemyController enemy;
 
+    public float range = 1f;
+
     private void Start()
     {
         enemy = this.transform.parent.GetComponent<EnemyController>();
@@ -16,7 +18,7 @@ public class EnemyDetector : MonoBehaviour
         if (enemy.target)
             return;
 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(this.transform.position, 0.5f, -Vector2.right, 1f);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(this.transform.position, 0.5f, -Vector2.right, range);
         for (int i = 0; i < hits.Length; i++)
         {
 

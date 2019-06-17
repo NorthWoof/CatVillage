@@ -6,6 +6,8 @@ public class EnemyBase : Unit
 {
     public override void Dead()
     {
-        base.Dead();
+        isDead = true;
+        gameObject.layer = 10;
+        Destroy(this.gameObject);
     }
 }

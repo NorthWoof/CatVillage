@@ -8,7 +8,6 @@ public class SoldierController : Unit
     [Header("BaseStats")]
     public float baseSpeed = 2;
 
-    public string damageType; //melee,projectile,magic
     public int baseAttackDamage = 10;
 
     public float attackDelay = 1f; 
@@ -16,7 +15,7 @@ public class SoldierController : Unit
     public Unit target;
 
     //adapted stats
-    private int attackDamage;
+    [HideInInspector]public int attackDamage;
 
     public float attackDelayCountdown = 0;
 
@@ -27,7 +26,7 @@ public class SoldierController : Unit
 
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         body = this.GetComponent<Rigidbody2D>();
         anim = GetComponent<SoldierAnimation>();
@@ -55,6 +54,7 @@ public class SoldierController : Unit
         else
         {
             body.velocity = new Vector2(0, 0);
+            anim.IdleNotAttack();
         }
     }
 
@@ -92,7 +92,7 @@ public class SoldierController : Unit
         if (!target)
             return;
 
-            target.TakeDamage(attackDamage);
+            target.TakeDamage(attackDamage,DamageType.melee);
     }
 
     public override void Dead()

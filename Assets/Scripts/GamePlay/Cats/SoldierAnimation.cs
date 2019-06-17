@@ -17,7 +17,7 @@ public class SoldierAnimation : MonoBehaviour
     private UnityArmatureComponent armatureComponent;
 
     // Start is called before the first frame update
-    void Start()
+    public void Start()
     {
         armatureComponent = GetComponent<DragonBones.UnityArmatureComponent>();
         armatureComponent.AddDBEventListener(EventObject.COMPLETE, this.OnAnimationEventHandler);
@@ -33,6 +33,15 @@ public class SoldierAnimation : MonoBehaviour
             state = State.ATTACK;
         }
 
+    }
+
+    public void IdleNotAttack()
+    {
+        if (state != State.DEAD && state != State.IDLE && state != State.ATTACK)
+        {
+            armatureComponent.animation.Play(idle);
+            state = State.IDLE;
+        }
     }
 
     public void Idle()

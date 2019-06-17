@@ -4,47 +4,47 @@ using UnityEngine;
 
 public class SoldierDetector : MonoBehaviour
 {
-
-
     SoldierController soldier;
+
+    public float range = 0.75f;
 
     private void Start()
     {
         soldier = this.transform.parent.GetComponent<SoldierController>();
+
+        range += Random.Range(-0.25f,0.25f);
     }
 
     private void FixedUpdate()
     {
         if (soldier.target)
-            return;
+        {
+            if (soldier.target.tag == "Enemy")
+                return;
+        }
 
-        RaycastHit2D[] hits = Physics2D.CircleCastAll(this.transform.position, 0.5f, Vector2.right,1f);
+        RaycastHit2D[] hits = Physics2D.CircleCastAll(this.transform.position, 0.5f, Vector2.right,range);
         for (int i = 0; i < hits.Length; i++)
         {
 
             RaycastHit2D hit = hits[i];
-            if (soldier.target)
-            {
-                if (soldier.target.tag == "Enemy")
-                    return;
-            }
 
             if (hit.collider != null)
             {
-                if (hit.collider.tag == "Enemy")
+                if (hit.collider.tag == "EnemyBase")
                 {
                     soldier.target = hit.collider.GetComponent<Unit>();
-                    return;
                 }
-                else if (hit.collider.tag == "EnemyBase")
+                else if (hit.collider.tag == "Enemy")
                 {
-                    soldier.target = hit.collider.GetComponent<Unit>();
-                    return;
+                    if (!hit.collider.GetComponent<Unit>().isDead)
+                    {
+                        soldier.target = hit.collider.GetComponent<Unit>();
+                        return;
+                    }
                 }
             }
         }
-        soldier.target = null;
-
     }
 }
 
