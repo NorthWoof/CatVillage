@@ -6,13 +6,15 @@ using System;
 
 public class SoldierAnimation : MonoBehaviour
 {
-    enum State {IDLE, RUNNING, ATTACK, DEAD };
+    enum State {IDLE, RUNNING, ATTACK, Skill, DEAD };
     private State state = State.IDLE;
 
     public string run = "Running";
     public string attack = "Attack";
     public string idle = "Idle";
     public string dead = "Dead";
+    public string skill = "Skill";
+
 
     private UnityArmatureComponent armatureComponent;
 
@@ -35,9 +37,18 @@ public class SoldierAnimation : MonoBehaviour
 
     }
 
+    public void Skill()
+    {
+        if (state != State.DEAD && state != State.Skill)
+        {
+            armatureComponent.animation.Play(skill);
+            state = State.Skill;
+        }
+    }
+
     public void IdleNotAttack()
     {
-        if (state != State.DEAD && state != State.IDLE && state != State.ATTACK)
+        if (state != State.DEAD && state != State.IDLE && state != State.ATTACK && state != State.Skill)
         {
             armatureComponent.animation.Play(idle);
             state = State.IDLE;
@@ -74,6 +85,11 @@ public class SoldierAnimation : MonoBehaviour
     void OnAnimationEventHandler(string type, EventObject eventObject)
     {
         if (eventObject.animationState.name == attack)
+        {
+            Idle();
+        }
+
+        if (eventObject.animationState.name == skill)
         {
             Idle();
         }

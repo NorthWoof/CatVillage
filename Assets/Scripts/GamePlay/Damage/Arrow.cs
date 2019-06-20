@@ -55,7 +55,7 @@ public class Arrow : MonoBehaviour
     {
         if(collision.gameObject == target)
         {
-            collision.gameObject.GetComponent<Unit>().TakeDamage(damage,DamageType.range);
+            collision.gameObject.GetComponent<Unit>().TakeDamage(damage);
             Destroy(this.gameObject,0.2f);
         }
     }

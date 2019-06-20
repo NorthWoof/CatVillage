@@ -10,6 +10,7 @@ TagManager:
   - Enemy
   - Boss
   - Projectile
+  - EffectSkill
   layers:
   - Default
   - TransparentFX
@@ -23,7 +24,7 @@ TagManager:
   - Unit
   - DeadUnit
   - Projectile
-  - 
+  - Skill
   - 
   - 
   - 
@@ -56,6 +57,12 @@ TagManager:
   - name: Projectile
     uniqueID: 3386742597
     locked: 0
+  - name: EffectSkill
+    uniqueID: 4237278727
+    locked: 0
   - name: Foreground
     uniqueID: 1323168447
+    locked: 0
+  - name: UI
+    uniqueID: 4038233635
     locked: 0

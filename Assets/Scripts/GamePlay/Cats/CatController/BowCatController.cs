@@ -7,7 +7,7 @@ public class BowCatController : SoldierController
     public Transform firePoint;
     public Arrow arrow;
 
-    public override void Attack(Unit target)
+    public override void Attack()
     {
         if (!target)
             return;

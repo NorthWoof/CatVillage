@@ -17,20 +17,39 @@ public class SoldierController : Unit
     //adapted stats
     [HideInInspector]public int attackDamage;
 
-    public float attackDelayCountdown = 0;
+    [Header("Skill")]
+    public int mana;
+    public int manaIncresement = 20;
+    public float skillCooldown = 5f;
+
+    [HideInInspector] public float attackDelayCountdown = 0;
+    [HideInInspector] public float skillCooldownCountdown = 0;
+
+    [Header("Points")]
+    public GameObject healthBarPoint;
 
     Rigidbody2D body;
     SoldierAnimation anim;
 
     private UnityArmatureComponent armatureComponent;
-
+    private HealthBar healthBar;
 
     // Start is called before the first frame update
-    public virtual void Start()
+    public override void Start()
     {
+        base.Start();
         body = this.GetComponent<Rigidbody2D>();
         anim = GetComponent<SoldierAnimation>();
 
+        if (healthBarPoint)
+        {
+            GameObject healthBarObj = Resources.Load("Prefabs/UIs/HealthBar/CatHealthBar") as GameObject;
+            healthBar = Instantiate(healthBarObj, healthBarPoint.transform.position, healthBarPoint.transform.rotation).GetComponent<HealthBar>();
+            healthBar.transform.SetParent(this.transform);
+            healthBar.SetHPBar(maxHP,maxHP);
+            healthBar.SetManaBar(0);
+        }
+        
         attackDamage = baseAttackDamage;
 
         armatureComponent = GetComponent<DragonBones.UnityArmatureComponent>();
@@ -83,24 +102,74 @@ public class SoldierController : Unit
     //trigger attack anim
     public virtual void Action()
     {
-        anim.Attack();
+        if(mana < 100)
+        {
+            anim.Attack();
+        }
+        else
+        {
+            anim.Skill();
+        }
+
         attackDelayCountdown = attackDelay;
+
     }
 
-    public virtual void Attack(Unit target)
+    public virtual void Attack()
     {
         if (!target)
             return;
 
-            target.TakeDamage(attackDamage,DamageType.melee);
+        if (mana < 100)
+        {
+            mana += manaIncresement;
+        }
+
+        if (healthBar)
+        {
+            healthBar.SetManaBar(mana);
+        }
+
+        //target.TakeDamage(attackDamage,DamageType.melee);
+        target.TakeDamage(attackDamage);
+    }
+
+    public virtual void Skill()
+    {
+        mana = 0;
+        if (healthBar)
+        {
+            healthBar.SetManaBar(mana);
+        }
+    }
+
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+
+        if(mana < 100)
+        {
+            mana += manaIncresement;
+        }
+
+
+        if (healthBar)
+        {
+            healthBar.SetHPBar(hp,maxHP);
+            healthBar.SetManaBar(mana);
+        }
     }
 
     public override void Dead()
     {
+        if (healthBar)
+        {
+            healthBar.SetHPBar(0,maxHP);
+            healthBar.gameObject.SetActive(false);
+        }
+
         anim.Dead();
-        isDead = true;
-        gameObject.layer = 10;
-        Destroy(this.gameObject,3f);
+        base.Dead();
     }
 
     //dragonbones event
@@ -108,7 +177,12 @@ public class SoldierController : Unit
     {
         if(eventObject.name == "atk")
         {
-            Attack(target);
+            Attack();
+        }
+
+        if (eventObject.name == "skill")
+        {
+            Skill();
         }
     }
 }

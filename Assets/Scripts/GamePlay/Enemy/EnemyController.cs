@@ -18,17 +18,31 @@ public class EnemyController : Unit
 
     public float attackDelayCountdown = 0;
 
+    [Header("Points")]
+    public GameObject healthBarPoint;
+
     Rigidbody2D body;
     EnemyAnimation anim;
 
     private UnityArmatureComponent armatureComponent;
+    private HealthBar healthBar;
 
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         body = this.GetComponent<Rigidbody2D>();
         anim = GetComponent<EnemyAnimation>();
+
+        if (healthBarPoint)
+        {
+            GameObject healthBarObj = Resources.Load("Prefabs/UIs/HealthBar/EnemyHealthBar") as GameObject;
+            healthBar = Instantiate(healthBarObj, healthBarPoint.transform.position, healthBarPoint.transform.rotation).GetComponent<HealthBar>();
+            healthBar.transform.SetParent(this.transform);
+            healthBar.SetHPBar(maxHP,maxHP);
+            healthBar.SetManaBar(0);
+        }
 
         attackDamage = baseAttackDamage;
 
@@ -91,6 +105,27 @@ public class EnemyController : Unit
         target.TakeDamage(attackDamage);
     }
 
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        if (healthBar)
+        {
+            healthBar.SetHPBar(hp,maxHP);
+        }
+    }
+
+    public override void Dead()
+    {
+        if (healthBar)
+        {
+            healthBar.SetHPBar(0,maxHP);
+            healthBar.gameObject.SetActive(false);
+        }
+
+        anim.Dead();
+        base.Dead();
+    }
+
     private void OnFrameEventHandler(string type, EventObject eventObject)
     {
         if (eventObject.name == "atk")
@@ -99,10 +134,4 @@ public class EnemyController : Unit
         }
     }
 
-
-    public override void Dead()
-    {
-        anim.Dead();
-        base.Dead();
-    }
 }

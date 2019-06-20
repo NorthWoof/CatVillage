@@ -4,9 +4,15 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
+    public int maxHP = 50;
     public int hp = 50;
 
     [HideInInspector] public bool isDead = false;
+
+    public virtual void Start()
+    {
+        hp = maxHP;
+    }
 
     public virtual void TakeDamage(int damage)
     {
@@ -14,11 +20,11 @@ public class Unit : MonoBehaviour
         CheckHp();
     }
 
-    public virtual void TakeDamage(int damage,string damageType)
+    /*public virtual void TakeDamage(int damage,string damageType)
     {
         hp -= damage;
         CheckHp();
-    }
+    }*/
 
     public void CheckHp()
     {
