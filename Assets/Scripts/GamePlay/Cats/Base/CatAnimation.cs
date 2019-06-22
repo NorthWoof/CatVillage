@@ -4,10 +4,11 @@ using UnityEngine;
 using DragonBones;
 using System;
 
-public class SoldierAnimation : MonoBehaviour
+public class CatAnimation : MonoBehaviour
 {
     enum State {IDLE, RUNNING, ATTACK, Skill, DEAD };
     private State state = State.IDLE;
+    public string currentState;
 
     public string run = "Running";
     public string attack = "Attack";
@@ -24,7 +25,7 @@ public class SoldierAnimation : MonoBehaviour
         armatureComponent = GetComponent<DragonBones.UnityArmatureComponent>();
         armatureComponent.AddDBEventListener(EventObject.COMPLETE, this.OnAnimationEventHandler);
 
-        armatureComponent.animation.Play(run);
+        Running();
     }
 
     public void Attack()
@@ -33,6 +34,7 @@ public class SoldierAnimation : MonoBehaviour
         {
             armatureComponent.animation.Play(attack);
             state = State.ATTACK;
+            currentState = "attack";
         }
 
     }
@@ -43,6 +45,7 @@ public class SoldierAnimation : MonoBehaviour
         {
             armatureComponent.animation.Play(skill);
             state = State.Skill;
+            currentState = "skill";
         }
     }
 
@@ -52,6 +55,7 @@ public class SoldierAnimation : MonoBehaviour
         {
             armatureComponent.animation.Play(idle);
             state = State.IDLE;
+            currentState = "idle";
         }
     }
 
@@ -61,6 +65,7 @@ public class SoldierAnimation : MonoBehaviour
         {
             armatureComponent.animation.Play(idle);
             state = State.IDLE;
+            currentState = "idle";
         }
     }
 
@@ -70,6 +75,7 @@ public class SoldierAnimation : MonoBehaviour
         {
             armatureComponent.animation.Play(run);
             state = State.RUNNING;
+            currentState = "running";
         }
     }
 
@@ -79,6 +85,7 @@ public class SoldierAnimation : MonoBehaviour
         {
             armatureComponent.animation.Play(dead);
             state = State.DEAD;
+            currentState = "dead";
         }
     }
 

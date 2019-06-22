@@ -2,23 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BowCatController : SoldierController
+public class BowCatController : ArcherClass
 {
-    public Transform firePoint;
-    public Arrow arrow;
-
-    public override void Attack()
+    public override void Action()
     {
-        if (!target)
-            return;
-        if (arrow)
+        int activeChance = Random.Range(0, 100);
+        if (activeChance <= 75)
         {
-            Arrow tempArrow;
-            if (firePoint)
-                tempArrow = Instantiate(arrow, firePoint.position, firePoint.rotation);
-            else
-                tempArrow = Instantiate(arrow, this.transform.position, this.transform.rotation);
-            tempArrow.SetValue(target.gameObject, baseAttackDamage);
+            anim.Attack();
         }
+        else
+        {
+            anim.Skill();
+        }
+
+        actionDelayCountdown = actionDelay;
+
     }
+
+   
 }

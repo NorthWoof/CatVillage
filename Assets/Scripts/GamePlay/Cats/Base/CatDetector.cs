@@ -2,24 +2,24 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoldierDetector : MonoBehaviour
+public class CatDetector : MonoBehaviour
 {
-    SoldierController soldier;
+    CatController cat;
 
     public float range = 0.75f;
 
     private void Start()
     {
-        soldier = this.transform.parent.GetComponent<SoldierController>();
+        cat = this.transform.parent.GetComponent<CatController>();
 
         range += Random.Range(-0.25f,0.25f);
     }
 
     private void FixedUpdate()
     {
-        if (soldier.target)
+        if (cat.target)
         {
-            if (soldier.target.tag == "Enemy")
+            if (cat.target.tag == "Enemy")
                 return;
         }
 
@@ -33,13 +33,13 @@ public class SoldierDetector : MonoBehaviour
             {
                 if (hit.collider.tag == "EnemyBase")
                 {
-                    soldier.target = hit.collider.GetComponent<Unit>();
+                    cat.target = hit.collider.GetComponent<Unit>();
                 }
                 else if (hit.collider.tag == "Enemy")
                 {
                     if (!hit.collider.GetComponent<Unit>().isDead)
                     {
-                        soldier.target = hit.collider.GetComponent<Unit>();
+                        cat.target = hit.collider.GetComponent<Unit>();
                         return;
                     }
                 }

@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using DragonBones;
 
-public class SoldierController : Unit
+public class CatController : Unit
 {
     [Header("BaseStats")]
     public float baseSpeed = 2;
 
     public int baseAttackDamage = 10;
 
-    public float attackDelay = 1f; 
+    public float actionDelay = 1f; 
 
     public Unit target;
 
@@ -22,24 +22,24 @@ public class SoldierController : Unit
     public int manaIncresement = 20;
     public float skillCooldown = 5f;
 
-    [HideInInspector] public float attackDelayCountdown = 0;
+    [HideInInspector] public float actionDelayCountdown = 0;
     [HideInInspector] public float skillCooldownCountdown = 0;
 
     [Header("Points")]
     public GameObject healthBarPoint;
 
     Rigidbody2D body;
-    SoldierAnimation anim;
+    [HideInInspector] public CatAnimation anim;
 
     private UnityArmatureComponent armatureComponent;
-    private HealthBar healthBar;
+    [HideInInspector] public HealthBar healthBar;
 
     // Start is called before the first frame update
     public override void Start()
     {
         base.Start();
         body = this.GetComponent<Rigidbody2D>();
-        anim = GetComponent<SoldierAnimation>();
+        anim = GetComponent<CatAnimation>();
 
         if (healthBarPoint)
         {
@@ -67,8 +67,11 @@ public class SoldierController : Unit
 
         if (!target)
         {
-            body.velocity = new Vector2(baseSpeed, 0);
-            anim.Running(); 
+            if(anim.currentState == "idle"|| anim.currentState == "running")
+            {
+                body.velocity = new Vector2(baseSpeed, 0);
+                anim.Running();
+            }
         }
         else
         {
@@ -86,9 +89,9 @@ public class SoldierController : Unit
             if (target.isDead)
                 target = null;
 
-        if (attackDelayCountdown >= 0)
+        if (actionDelayCountdown >= 0)
         {
-            attackDelayCountdown -= Time.deltaTime;
+            actionDelayCountdown -= Time.deltaTime;
         }
         else
         {
@@ -111,15 +114,12 @@ public class SoldierController : Unit
             anim.Skill();
         }
 
-        attackDelayCountdown = attackDelay;
+        actionDelayCountdown = actionDelay;
 
     }
 
     public virtual void Attack()
     {
-        if (!target)
-            return;
-
         if (mana < 100)
         {
             mana += manaIncresement;
@@ -129,9 +129,6 @@ public class SoldierController : Unit
         {
             healthBar.SetManaBar(mana);
         }
-
-        //target.TakeDamage(attackDamage,DamageType.melee);
-        target.TakeDamage(attackDamage);
     }
 
     public virtual void Skill()

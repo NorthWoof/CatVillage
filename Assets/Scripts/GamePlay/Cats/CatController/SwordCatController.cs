@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SwordCatController : SoldierController
+public class SwordCatController : WarriorClass
 {
     public override void Skill()
     {
@@ -11,7 +11,6 @@ public class SwordCatController : SoldierController
         if (!target)
             return;
 
-        //target.TakeDamage(attackDamage,DamageType.melee);
         target.TakeDamage(Mathf.RoundToInt(attackDamage*2.5f));
     }
 }

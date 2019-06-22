@@ -16,35 +16,33 @@ public class EnemyDetector : MonoBehaviour
     private void FixedUpdate()
     {
         if (enemy.target)
-            return;
+        {
+            if (enemy.target.tag == "Cat")
+                return;
+        }
 
         RaycastHit2D[] hits = Physics2D.CircleCastAll(this.transform.position, 0.5f, -Vector2.right, range);
         for (int i = 0; i < hits.Length; i++)
         {
 
             RaycastHit2D hit = hits[i];
-            if (enemy.target)
-            {
-                if (enemy.target.tag == "Cat")
-                    return;
-            }
 
             if (hit.collider != null)
             {
-                if (hit.collider.tag == "Cat")
+                if (hit.collider.tag == "CatBase")
                 {
                     enemy.target = hit.collider.GetComponent<Unit>();
-                    return;
                 }
-                else if (hit.collider.tag == "CatBase")
+                else if (hit.collider.tag == "Cat")
                 {
-                    enemy.target = hit.collider.GetComponent<Unit>();
-                    return;
+                    if (!hit.collider.GetComponent<Unit>().isDead)
+                    {
+                        enemy.target = hit.collider.GetComponent<Unit>();
+                        return;
+                    }
                 }
             }
         }
-        enemy.target = null;
-
     }
     /*
     private void OnTriggerStay2D(Collider2D col)

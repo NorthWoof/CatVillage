@@ -23,7 +23,7 @@ public class Arrow : MonoBehaviour
 
         // move sprite towards the target location
         if(target)
-            transform.position = Vector2.MoveTowards(transform.position, target.transform.position, step);
+            transform.position = Vector2.MoveTowards(transform.position,new Vector3(target.transform.position.x, target.transform.position.y+1f), step);
     }
 
     public void SetValue(GameObject _target, int _damage)
