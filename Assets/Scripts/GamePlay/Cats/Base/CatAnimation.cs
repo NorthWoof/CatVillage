@@ -8,7 +8,7 @@ public class CatAnimation : MonoBehaviour
 {
     enum State {IDLE, RUNNING, ATTACK, Skill, DEAD };
     private State state = State.IDLE;
-    public string currentState;
+    public string currentState = "running";
 
     public string run = "Running";
     public string attack = "Attack";

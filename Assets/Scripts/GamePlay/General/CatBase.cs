@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class CatBase : Unit
 {
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        CatBaseHealthBar.Instance.SetHPBar(hp,maxHP);
+    }
+
     public override void Dead()
     {
         isDead = true;

@@ -18,7 +18,7 @@ public class ArcherClass : CatController
                 tempArrow = Instantiate(arrow, firePoint.position, firePoint.rotation);
             else
                 tempArrow = Instantiate(arrow, this.transform.position, this.transform.rotation);
-            tempArrow.SetValue(target.gameObject, baseAttackDamage);
+            tempArrow.SetValue(target, baseAttackDamage);
         }
         base.Attack();
     }

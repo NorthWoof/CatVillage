@@ -4,6 +4,12 @@ using UnityEngine;
 
 public class EnemyBase : Unit
 {
+    public override void TakeDamage(int damage)
+    {
+        base.TakeDamage(damage);
+        EnemyBaseHealthBar.Instance.SetHPBar(hp, maxHP);
+    }
+
     public override void Dead()
     {
         isDead = true;

@@ -10,9 +10,9 @@ GameObject:
   m_Component:
   - component: {fileID: 7236392625130249519}
   - component: {fileID: 7236392625130249518}
-  - component: {fileID: 61368297643616031}
+  - component: {fileID: 663814717100278346}
   - component: {fileID: 3071760309086335795}
-  m_Layer: 9
+  m_Layer: 31
   m_Name: EnemyBase(Forest)
   m_TagString: EnemyBase
   m_Icon: {fileID: 0}
@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 7236392625130249505}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -7.11, y: -0.32, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: -1, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -81,7 +81,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &61368297643616031
+--- !u!114 &663814717100278346
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -90,10 +90,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 7236392625130249505}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e804589c4e5e19f489734de973f59bc8, type: 3}
+  m_Script: {fileID: 11500000, guid: d158c86591eb7af48a9df6a9c7558fd2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hp: 500
+  maxHP: 250
+  hp: 250
   isDead: 0
 --- !u!61 &3071760309086335795
 BoxCollider2D:

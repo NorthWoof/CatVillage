@@ -7,6 +7,8 @@ public class GamePlayManager : MonoBehaviour
 {
     public static GamePlayManager Instance { get; private set; }
 
+    public Transform dummyPoint;
+
     public float fishes;
     public Image fishGauge;
     public float fishGaugeSpeed = 0.25f;
@@ -19,6 +21,7 @@ public class GamePlayManager : MonoBehaviour
     void Start()
     {
         Instance = this;
+        SpawnDummy();
     }
 
     private void Update()
@@ -26,6 +29,12 @@ public class GamePlayManager : MonoBehaviour
         UpdateFishGuage();
     }
 
+    public void SpawnDummy()
+    {
+        GameObject _dummy = Resources.Load("Prefabs/Dummy") as GameObject;
+        GameObject tempSoldier = Instantiate(_dummy, dummyPoint.position, dummyPoint.rotation);
+        Destroy(tempSoldier, 1f);
+    }
 
     public void UpdateFishGuage()
     {
